@@ -50,36 +50,41 @@
             },
 
 
-            Submit(){
-                if(this.name !='' && this.author != '')
-                {
-                    fd.append('name',this.name)
-                    fd.append('author',this.author)
+            Submit() {
+                if (this.name != '' && this.author != '') {
+                    fd.append('name', this.name)
+                    fd.append('author', this.author)
 
                     axios({
                         url: 'create.php',
                         method: 'post',
                         data: fd
                     }).then(response => {
-                        if(response.data.result == 'success'){
+                        if (response.data.result == 'success') {
                             application.successMsg = 'record insert successfully';
                             this.name = ''
-                            this.author  = ''
+                            this.author = ''
 
                             application.hideModal('add-modal')
                             application.getRecords()
-                        }else{
+                        } else {
                             alert('error')
                         }
                     }).catch(error => {
                         console.log(error)
                     })
-                }else{
+                } else {
                     alert('all fields are required')
                 }
             },
 
+            getBooks() { },
+
             
+            mounted: function () {
+
+                this.getBooks()
+            }
         }
     });
 </script>

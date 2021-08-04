@@ -48,6 +48,38 @@
             hideModal(id) {
                 this.$ref[id].show()
             },
+
+
+            Submit(){
+                if(this.name !='' && this.author != '')
+                {
+                    fd.append('name',this.name)
+                    fd.append('author',this.author)
+
+                    axios({
+                        url: 'create.php',
+                        method: 'post',
+                        data: fd
+                    }).then(response => {
+                        if(response.data.result == 'success'){
+                            application.successMsg = 'record insert successfully';
+                            this.name = ''
+                            this.author  = ''
+
+                            application.hideModal('add-modal')
+                            application.getRecords()
+                        }else{
+                            alert('error')
+                        }
+                    }).catch(error => {
+                        console.log(error)
+                    })
+                }else{
+                    alert('all fields are required')
+                }
+            },
+
+            
         }
     });
 </script>

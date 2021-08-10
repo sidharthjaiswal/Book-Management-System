@@ -9,17 +9,42 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
 
-   
+
 </head>
 
 <body>
     <div class="container" id="app">
-        <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+        <div class="card text-white bg-primary mb-3" style="max-width: 50rem;">
             <div class="card-header">Book Management Information System</div>
             <div class="card-body">
                 <h4 class="card-title">Register</h4>
-                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
-                    card's content.</p>
+                <form action="register.php" method="POST">
+                    <div class="form-group">
+                        <label for="FirstName" class="form-label mt-4">First Name:</label>
+                        <input type="text" class="form-control" id="FirstName" placeholder="Enter first name">
+                    </div>
+                    <div class="form-group">
+                        <label for="LastName" class="form-label mt-4">Last Name:</label>
+                        <input type="text" class="form-control" id="LastName" placeholder="Enter last name">
+                    </div>
+                    <div class="form-group">
+                        <label for="UserName" class="form-label mt-4">User Name:</label>
+                        <input type="text" class="form-control" id="UserName" placeholder="Enter user name">
+                    </div>
+                    <div class="form-group">
+                        <label for="Password" class="form-label mt-4">Password:</label>
+                        <input type="password" class="form-control" id="Password" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="Role" class="form-label mt-4">Select Role:</label>
+                        <br>
+                        <select multiple="" class="form-select" id="Role">
+                            <option>Customer</option>
+                            <option>Vendor</option>
+                            <option>Chief</option>
+                        </select>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -27,6 +52,10 @@
 <style>
     .container {
         display: flex;
+        position: absolute;
+        top: 10%;
+        transform: translate(350px, 20px);
         justify-content: center;
+
     }
 </style>

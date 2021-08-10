@@ -18,25 +18,26 @@
             <div class="card-header">Book Management Information System</div>
             <div class="card-body">
                 <h4 class="card-title">Register</h4>
-                <form action="register.php" method="POST">
+                <form>
                     <div class="form-group">
                         <label for="FirstName" class="form-label mt-4">First Name:</label>
-                        <input type="text" class="form-control" id="FirstName" placeholder="Enter first name">
+                        <input type="text" class="form-control" v-model="FirstName" id="FirstName"
+                            placeholder="Enter first name">
                     </div>
                     <div class="form-group">
                         <label for="LastName" class="form-label mt-4">Last Name:</label>
-                        <input type="text" class="form-control" id="LastName" placeholder="Enter last name">
+                        <input type="text" class="form-control" v-model="LastName" id="LastName"
+                            placeholder="Enter last name">
                     </div>
                     <div class="form-group">
                         <label for="UserName" class="form-label mt-4">User Name:</label>
-                        <input type="text" class="form-control" id="UserName" placeholder="Enter user name">
+                        <input type="text" class="form-control" v-model="UserName" id="UserName"
+                            placeholder="Enter user name">
                     </div>
                     <div class="form-group">
                         <label for="Password" class="form-label mt-4">Password:</label>
-                        <input type="password" class="form-control" id="Password" v-model="user.password"
-                            v-validate="'required|min:6|max:40'" placeholder="Password">
-                    </div>
-                    <div v-if="submitted && errors.has('password')" class="alert-danger">{{errors.first('password')}}
+                        <input type="password" class="form-control" id="Password" v-model="Password"
+                            placeholder="Password">
                     </div>
             </div>
             <div class="form-group">
@@ -49,7 +50,8 @@
                 </select>
             </div>
             <div class="form-group">
-                <button class="btn btn-success btn-block" type="submit"> Register</button>
+                <button class="btn btn-success btn-block" value="Add" @click="createUser()"> Register</button>
+                <!--    <button class="btn btn-warning btn-block" type="reset"> Reset</button>-->
             </div>
         </div>
     </div>
@@ -57,18 +59,77 @@
     </div>
     </div>
     </div>
+    <style>
+        .container {
+            display: flex;
+            position: absolute;
+            top: 10%;
+            transform: translate(350px, 20px);
+            justify-content: center;
+
+        }
+
+        button {
+            transform: translate(0px, 60px);
+        }
+    </style>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+
+            data: {
+
+                FirstName: '',
+                LastName: '',
+                UserName: '',
+                Password: ''
+            },
+            mounted: function () {
+                console.log('Hello From sidh and Vue');
+            },
+
+            methods: {
+                createUser: function () {
+                    console.log("Create user!")
+
+                    let formData = new FormData();
+                    console.log("FirstName:", this.FirstName)
+                    formData.append('LastName', this.LastName)
+                    formData.append('UserName', this.UserName)
+                    formData.append('Password', this.Password)
+
+                    var user = {};
+                    formData.forEach(function (value, key) {
+                        user[key] = value;
+                    });
+
+                    axios({
+                        method: 'post',
+                        url: 'requests/register.php',
+                        data: formData,
+                        config: { headers: { 'Content-Type': 'multipart/form-data' } }
+                    })
+                        .then(function (response) {
+                            //handle success
+                            console.log(response)
+                            app.users.push(user)
+                            app.resetForm();
+                        })
+                        .catch(function (response) {
+                            //handle error
+                            console.log(response)
+                        });
+                },
+                resetForm: function () {
+                    this.FirstName = '';
+                    this.LastName = '';
+                    this.UserName = '';
+                    this.Password = '';
+                }
+            }
+        })
+    </script>
 </body>
-<style>
-    .container {
-        display: flex;
-        position: absolute;
-        top: 10%;
-        transform: translate(350px, 20px);
-        justify-content: center;
 
-    }
-
-    button {
-        transform: translate(0px, 60px);
-    }
-</style>
+</html>

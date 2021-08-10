@@ -14,7 +14,7 @@
 
 <body>
     <div class="container" id="app">
-        <div class="card text-white bg-primary mb-3" style="max-width: 50rem;">
+        <div class="card text-white bg-primary mb-3" style="max-width: 40rem;">
             <div class="card-header">Book Management Information System</div>
             <div class="card-body">
                 <h4 class="card-title">Register</h4>
@@ -33,20 +33,29 @@
                     </div>
                     <div class="form-group">
                         <label for="Password" class="form-label mt-4">Password:</label>
-                        <input type="password" class="form-control" id="Password" placeholder="Password">
+                        <input type="password" class="form-control" id="Password" v-model="user.password"
+                            v-validate="'required|min:6|max:40'" placeholder="Password">
                     </div>
-                    <div class="form-group">
-                        <label for="Role" class="form-label mt-4">Select Role:</label>
-                        <br>
-                        <select multiple="" class="form-select" id="Role">
-                            <option>Customer</option>
-                            <option>Vendor</option>
-                            <option>Chief</option>
-                        </select>
+                    <div v-if="submitted && errors.has('password')" class="alert-danger">{{errors.first('password')}}
                     </div>
-                </form>
+            </div>
+            <div class="form-group">
+                <label for="Role" class="form-label mt-4">Select Role:</label>
+                <br>
+                <select multiple="" class="form-select" id="Role">
+                    <option>Customer</option>
+                    <option>Vendor</option>
+                    <option>Chief</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-success btn-block" type="submit"> Register</button>
             </div>
         </div>
+    </div>
+    </form>
+    </div>
+    </div>
     </div>
 </body>
 <style>
@@ -57,5 +66,9 @@
         transform: translate(350px, 20px);
         justify-content: center;
 
+    }
+
+    button {
+        transform: translate(0px, 60px);
     }
 </style>

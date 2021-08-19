@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `books` (
-  `id` int(11) NOT NULL,
-  `title` int(11) NOT NULL,
-  `author` varchar(100) NOT NULL,
+  `id` int(11) UNIQUE NOT NULL,
+  `title` int(11)  UNIQUE NOT NULL,
+  `author` varchar(100) UNIQUE NOT NULL,
   `date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -44,7 +44,7 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `FirstName` varchar(45) NOT NULL,
   `LastName` varchar(45) NOT NULL,
-  `UserName` varchar(45) NOT NULL,
+  `UserName` varchar(45) UNIQUE NOT NULL,
   `Password` varchar(255) NOT NULL,
   `Role` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

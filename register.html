@@ -21,26 +21,26 @@
                 <form>
                     <div class="form-group">
                         <label for="FirstName" class="form-label mt-4">First Name:</label>
-                        <input type="text" class="form-control" v-model="FirstName" id="FirstName"
+                        <input type="text" class="form-control" v-model="FirstName" id="FirstName" required
                             placeholder="Enter first name">
                     </div>
                     <div class="form-group">
                         <label for="LastName" class="form-label mt-4">Last Name:</label>
-                        <input type="text" class="form-control" v-model="LastName" id="LastName"
+                        <input type="text" class="form-control" v-model="LastName" id="LastName" required
                             placeholder="Enter last name">
                     </div>
                     <div class="form-group">
                         <label for="UserName" class="form-label mt-4">User Name:</label>
-                        <input type="text" class="form-control" v-model="UserName" id="UserName"
+                        <input type="text" class="form-control" v-model="UserName" id="UserName" required
                             placeholder="Enter user name">
                     </div>
                     <div class="form-group">
                         <label for="Password" class="form-label mt-4">Password:</label>
-                        <input type="password" class="form-control" id="Password" v-model="Password"
+                        <input type="password" class="form-control" id="Password" v-model="Password" required
                             placeholder="Password">
                     </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" v-if="Role == 'Chief' ">
                 <label for="Role" class="form-label mt-4">Select Role:</label>
                 <br>
                 <select multiple="" class="form-select" id="Role">
@@ -51,7 +51,6 @@
             </div>
             <div class="form-group">
                 <button class="btn btn-success btn-block" value="Add" @click="createUser()"> Register</button>
-                <!--    <button class="btn btn-warning btn-block" type="reset"> Reset</button>-->
             </div>
         </div>
     </div>
@@ -83,7 +82,8 @@
                 FirstName: '',
                 LastName: '',
                 UserName: '',
-                Password: ''
+                Password: '',
+                Role: ''
             },
             mounted: function () {
                 console.log('Hello From sidh and Vue');
@@ -91,13 +91,14 @@
 
             methods: {
                 createUser: function () {
-                    console.log("Create user!")
+                    console.log("Creating user!")
 
                     let formData = new FormData();
                     console.log("FirstName:", this.FirstName)
                     formData.append('LastName', this.LastName)
                     formData.append('UserName', this.UserName)
                     formData.append('Password', this.Password)
+                    formData.append('Role', this.Role)
 
                     var user = {};
                     formData.forEach(function (value, key) {
@@ -113,7 +114,7 @@
                         .then(function (response) {
                             //handle success
                             console.log(response)
-                            app.users.push(user)
+                            app.users.push(user);
                             app.resetForm();
                         })
                         .catch(function (response) {

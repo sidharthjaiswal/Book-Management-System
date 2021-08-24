@@ -105,28 +105,17 @@
                         user[key] = value;
                     });
 
-                    axios({
-                        method: 'post',
-                        url: 'requests/register.php',
+                    axios.post('/Book-Management-System/requests/register.php', JSON.stringify({
                         data: formData,
-                        config: { headers: { 'Content-Type': 'multipart/form-data' } }
-                    })
+                    }))
                         .then(function (response) {
                             //handle success
                             console.log(response)
-                            app.users.push(user);
-                            app.resetForm();
                         })
                         .catch(function (response) {
                             //handle error
                             console.log(response)
                         });
-                },
-                resetForm: function () {
-                    this.FirstName = '';
-                    this.LastName = '';
-                    this.UserName = '';
-                    this.Password = '';
                 }
             }
         })

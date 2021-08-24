@@ -1,11 +1,11 @@
 
 <?php
- 
-    $Firstname = $data->FirstName;
-    $Lastname = $data->LastName;
-    $Username = $data->Username;
-    $Password =  password_hash($data ->Password,PASSWORD_DEFAULT);
-    $Role = $data->Role;
+
+    $Firstname = $_POST["FirstName"];
+    $Lastname =  $_POST["LastName"];
+    $Username =  $_POST["UserName"];
+    $Password =  password_hash( $_POST["Password"],PASSWORD_DEFAULT);
+    $Role =  $_POST["Role"];
 
     $con = mysqli_connect("","root","");
 	
